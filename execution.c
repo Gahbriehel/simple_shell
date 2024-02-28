@@ -5,6 +5,7 @@
  * @input: pointer to string
  * Return: void
  */
+extern char **environ;
 
 void execute(const char *input)
 {
@@ -38,7 +39,7 @@ void execute(const char *input)
 		}
 		if (pid == 0)
 		{
-			execve(input, args, NULL);
+			execve(input, args, environ);
 			perror("execve");
 			free(args[0]);
 			free(args);
