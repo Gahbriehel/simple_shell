@@ -14,7 +14,9 @@ void handle_user_input(void)
 	size_t bufferSize = 0;
 	ssize_t numChars;
 
-	my_printf("$ ");
+	char *shellname = "Gabriel$ ";
+
+	write(1, shellname, strlen(shellname));
 
 	numChars = my_getline(&input, &bufferSize, stdin);
 
@@ -22,7 +24,7 @@ void handle_user_input(void)
 	{
 		if (feof(stdin))
 		{
-			my_printf("\n");
+			_putchar('\n');
 			free(input);
 			exit(EXIT_SUCCESS);
 		}

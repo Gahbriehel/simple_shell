@@ -7,6 +7,9 @@
 
 void handle_exit(void)
 {
-	my_printf("Exiting program.\n");
+	char *c = "Exiting program...";
+
+	write(1, c, strlen(c));
+	_putchar('\n');
 	exit(EXIT_SUCCESS);
 }
