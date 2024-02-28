@@ -1,5 +1,11 @@
 #include "main.h"
 
+/**
+ * execute - function to execute command
+ * @input: pointer to string
+ * Return: void
+ */
+
 void execute(const char *input)
 {
 	pid_t pid;
@@ -8,21 +14,19 @@ void execute(const char *input)
 	{
 		char **args = malloc(2 * sizeof(char *));
 
-		if (args == NULL)
+		if (!args)
 		{
 			perror("malloc");
 			exit(EXIT_FAILURE);
 		}
-
 		args[0] = strdup(input);
-		if (args[0] == NULL)
+		if (!args[0])
 		{
 			perror("strdup");
 			free(args);
 			exit(EXIT_FAILURE);
 		}
 		args[1] = NULL;
-
 		pid = fork();
 
 		if (pid == -1)
@@ -32,7 +36,7 @@ void execute(const char *input)
 			free(args);
 			exit(EXIT_FAILURE);
 		}
-		else if (pid == 0)
+		if (pid == 0)
 		{
 			execve(input, args, NULL);
 			perror("execve");
@@ -40,11 +44,8 @@ void execute(const char *input)
 			free(args);
 			exit(EXIT_FAILURE);
 		}
-		else
-		{
-			wait(NULL);
-			free(args[0]);
-			free(args);
-		}
+		wait(NULL);
+		free(args[0]);
+		free(args);
 	}
 }
